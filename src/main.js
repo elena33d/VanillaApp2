@@ -1,3 +1,4 @@
+import './css/main.scss';
 import { loadExerciseCards, initCardsEventListener, initSearch } from './js/exercises.js';
 import { displayQuote } from './js/quote.js';
 import { initHeader } from './js/header.js';
@@ -9,13 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', async function() {
   console.log("DOM ready");
-
   initHeader();
-
   initCardsEventListener();
-
   initSearch();
-
+  
   const filterButtons = document.querySelectorAll('.exercises__content__header-filters-item');
   filterButtons.forEach(button => {
     button.addEventListener('click', function() {
@@ -25,9 +23,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       loadExerciseCards(filter, 1);
     });
   });
-
-  await displayQuote();
-
-  loadExerciseCards('Muscles', 1);
   
+  await displayQuote();
+  loadExerciseCards('Muscles', 1);
 });
