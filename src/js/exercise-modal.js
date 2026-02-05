@@ -6,10 +6,8 @@ import {
 import { getCurrentPage } from './header.js';
 import { loadFavoritesExercises } from './exercises.js';
 
-// Змінна для зберігання ID вправи для рейтингу
 let currentExerciseIdForRating = null;
 
-// Функція для закриття модального вікна
 function closeExerciseModal() {
   const modal = document.getElementById('js-exercise-modal');
   if (!modal) return;
@@ -21,19 +19,15 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeExerciseModal();
 });
 
-// Функція для відкриття модального вікна з даними вправи
 export function openExerciseModal(exerciseId) {
   const modal = document.getElementById('js-exercise-modal');
   if (!modal) return;
 
-  // Зберігаємо ID вправи для рейтингу
   currentExerciseIdForRating = exerciseId;
 
-  // Показуємо модальне вікно з індикатором завантаження
   modal.classList.add('exercise-modal--open');
   document.body.style.overflow = 'hidden';
 
-  // Отримуємо елементи для заповнення
   const image = document.getElementById('js-exercise-modal-image');
   const title = document.getElementById('js-exercise-modal-title');
   const ratingValue = document.querySelector('.exercise-modal__rating-value');
@@ -46,7 +40,6 @@ export function openExerciseModal(exerciseId) {
   const time = document.getElementById('js-exercise-modal-time');
   const description = document.getElementById('js-exercise-modal-description');
 
-  // Очищаємо попередні дані
   if (title) title.textContent = 'Loading...';
   if (ratingValue) ratingValue.textContent = '0.0';
   if (target) target.textContent = '';
@@ -58,7 +51,6 @@ export function openExerciseModal(exerciseId) {
   if (description) description.textContent = '';
   if (image) image.src = '';
 
-  // Завантажуємо детальну інформацію про вправу
   fetch(`https://your-energy.b.goit.study/api/exercises/${exerciseId}`)
     .then(response => {
       if (!response.ok) {
@@ -67,7 +59,7 @@ export function openExerciseModal(exerciseId) {
       return response.json();
     })
     .then(exercise => {
-      // Заповнюємо дані модального вікна
+
       if (image) image.src = exercise.gifUrl || '';
       if (title) title.textContent = exercise.name || '';
       if (target) target.textContent = exercise.target || '';
@@ -78,7 +70,6 @@ export function openExerciseModal(exerciseId) {
       if (time) time.textContent = `/${exercise.time || 0} min`;
       if (description) description.textContent = exercise.description || '';
 
-      // Оновлюємо рейтинг
       if (ratingValue) {
         ratingValue.textContent = (exercise.rating || 0).toFixed(1);
       }
@@ -103,13 +94,11 @@ export function openExerciseModal(exerciseId) {
         });
       }
 
-      // Оновлюємо стан кнопки Favorites
       updateFavoriteButton(exerciseId);
 
-      // Підключення кнопки "Give a rating"
       const ratingBtn = document.getElementById('js-exercise-modal-rating-btn');
       if (ratingBtn) {
-        // Видаляємо попередні обробники
+
         const newRatingBtn = ratingBtn.cloneNode(true);
         ratingBtn.parentNode.replaceChild(newRatingBtn, ratingBtn);
 
@@ -127,7 +116,6 @@ export function openExerciseModal(exerciseId) {
     });
 }
 
-// Функція для оновлення стану кнопки Favorites
 function updateFavoriteButton(exerciseId) {
   const favoriteBtn = document.getElementById('js-exercise-modal-favorites');
   if (!favoriteBtn) return;
@@ -155,12 +143,9 @@ function updateFavoriteButton(exerciseId) {
   }
 }
 
-// Експорт функції закриття для використання в інших модулях
 export { closeExerciseModal };
 
-// Ініціалізація event listeners для модального вікна
 export function initExerciseModal() {
-  // Обробники для модального вікна
   const modalCloseBtn = document.getElementById('js-exercise-modal-close');
   const modal = document.getElementById('js-exercise-modal');
   const modalOverlay = modal?.querySelector('.exercise-modal__overlay');
@@ -173,7 +158,6 @@ export function initExerciseModal() {
     modalOverlay.addEventListener('click', closeExerciseModal);
   }
 
-  // Обробник для кнопки Favorites
   const favoriteBtn = document.getElementById('js-exercise-modal-favorites');
   if (favoriteBtn) {
     favoriteBtn.addEventListener('click', () => {
@@ -183,7 +167,6 @@ export function initExerciseModal() {
       const wasAdded = toggleFavorite(exerciseId);
       updateFavoriteButton(exerciseId);
 
-      // Якщо користувач на сторінці Favorites і видаляє вправу
       if (!wasAdded && getCurrentPage() === 'favorites') {
         closeExerciseModal();
         loadFavoritesExercises();

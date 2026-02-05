@@ -10,16 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', async function() {
   console.log("DOM ready");
 
-  // Инициализация навигации Home/Favorites
   initHeader();
 
-  // Инициализация клика по карточкам
   initCardsEventListener();
 
-  // Инициализация поиска
   initSearch();
 
-  // Инициализация фильтров (Muscles, Body parts, Equipment)
   const filterButtons = document.querySelectorAll('.exercises__content__header-filters-item');
   filterButtons.forEach(button => {
     button.addEventListener('click', function() {
@@ -30,10 +26,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
   });
 
-  // Загружаем цитату дня
   await displayQuote();
 
-  // Загружаем карточки упражнений по умолчанию
   loadExerciseCards('Muscles', 1);
   
 });

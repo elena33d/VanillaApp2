@@ -11,7 +11,6 @@
  */
 export function showFieldError(inputElement, errorElement, message) {
   if (inputElement) {
-    // Determine the appropriate error class based on element type
     const errorClass = inputElement.classList.contains('rating-modal__textarea')
       ? 'rating-modal__textarea--error'
       : inputElement.classList.contains('rating-modal__input')
@@ -19,10 +18,8 @@ export function showFieldError(inputElement, errorElement, message) {
       : inputElement.classList.contains('footer__subscribe-form-input')
       ? 'footer__subscribe-form-input--error'
       : 'form-field--error';
-
     inputElement.classList.add(errorClass);
   }
-
   if (errorElement) {
     errorElement.textContent = message;
     errorElement.classList.add('form-error--visible');
@@ -43,7 +40,6 @@ export function hideFieldError(inputElement, errorElement) {
       'form-field--error'
     );
   }
-
   if (errorElement) {
     errorElement.textContent = '';
     errorElement.classList.remove('form-error--visible');
@@ -68,4 +64,3 @@ export function validateEmail(email) {
 export function validateRequired(value) {
   return value.trim().length > 0;
 }
-

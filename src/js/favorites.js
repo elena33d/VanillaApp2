@@ -1,7 +1,5 @@
-// LocalStorage key for favorites
 const FAVORITES_KEY = 'favorites';
 
-// Get all favorite exercise IDs from LocalStorage
 export function getFavorites() {
   try {
     const favorites = localStorage.getItem(FAVORITES_KEY);
@@ -11,7 +9,6 @@ export function getFavorites() {
   }
 }
 
-// Add exercise ID to favorites
 export function addToFavorites(exerciseId) {
   try {
     const favorites = getFavorites();
@@ -26,7 +23,6 @@ export function addToFavorites(exerciseId) {
   }
 }
 
-// Remove exercise ID from favorites
 export function removeFromFavorites(exerciseId) {
   try {
     const favorites = getFavorites();
@@ -38,20 +34,18 @@ export function removeFromFavorites(exerciseId) {
   }
 }
 
-// Check if exercise is in favorites
 export function isFavorite(exerciseId) {
   const favorites = getFavorites();
   return favorites.includes(exerciseId);
 }
 
-// Toggle favorite status (add if not exists, remove if exists)
 export function toggleFavorite(exerciseId) {
   if (isFavorite(exerciseId)) {
     removeFromFavorites(exerciseId);
-    return false; // removed
+    return false;
   } else {
     addToFavorites(exerciseId);
-    return true; // added
+    return true;
   }
 }
 

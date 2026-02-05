@@ -1,20 +1,16 @@
 import { switchToHome, switchToFavorites } from './exercises.js';
 
-// Current active page
 let currentPage = 'home';
 
-// Mobile menu elements
 let mobileMenu = null;
 let burgerButton = null;
 let closeButton = null;
 
-// Switch page and update UI
 export function switchPage(page) {
   if (currentPage === page) return;
 
   currentPage = page;
 
-  // Update nav links active state in desktop nav
   const navLinks = document.querySelectorAll('.header__nav-link');
   navLinks.forEach(link => {
     const linkPage = link.getAttribute('data-page');
@@ -25,7 +21,6 @@ export function switchPage(page) {
     }
   });
 
-  // Update nav links active state in mobile menu
   const mobileNavLinks = document.querySelectorAll('.mobile-menu__nav-link');
   mobileNavLinks.forEach(link => {
     const linkPage = link.getAttribute('data-page');
@@ -36,7 +31,6 @@ export function switchPage(page) {
     }
   });
 
-  // Call corresponding function to render content
   if (page === 'home') {
     switchToHome();
   } else if (page === 'favorites') {
@@ -44,7 +38,6 @@ export function switchPage(page) {
   }
 }
 
-// Open mobile menu
 function openMobileMenu() {
   if (mobileMenu) {
     mobileMenu.classList.add('is-open');
@@ -52,7 +45,6 @@ function openMobileMenu() {
   }
 }
 
-// Close mobile menu
 function closeMobileMenu() {
   if (mobileMenu) {
     mobileMenu.classList.remove('is-open');
@@ -60,9 +52,8 @@ function closeMobileMenu() {
   }
 }
 
-// Initialize header event listeners
 export function initHeader() {
-  // Desktop nav links
+
   const navLinks = document.querySelectorAll('.header__nav-link');
 
   navLinks.forEach(link => {
@@ -75,22 +66,18 @@ export function initHeader() {
     });
   });
 
-  // Mobile menu elements
   mobileMenu = document.querySelector('.mobile-menu');
   burgerButton = document.querySelector('.header__burger');
   closeButton = document.querySelector('.mobile-menu__close');
 
-  // Burger button
   if (burgerButton) {
     burgerButton.addEventListener('click', openMobileMenu);
   }
 
-  // Close button
   if (closeButton) {
     closeButton.addEventListener('click', closeMobileMenu);
   }
 
-  // Mobile nav links
   const mobileNavLinks = document.querySelectorAll('.mobile-menu__nav-link');
   mobileNavLinks.forEach(link => {
     link.addEventListener('click', e => {
@@ -103,7 +90,6 @@ export function initHeader() {
     });
   });
 
-  // Close menu on backdrop click
   if (mobileMenu) {
     mobileMenu.addEventListener('click', e => {
       if (e.target === mobileMenu) {
@@ -113,7 +99,6 @@ export function initHeader() {
   }
 }
 
-// Get current page
 export function getCurrentPage() {
   return currentPage;
 }
