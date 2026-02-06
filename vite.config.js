@@ -9,7 +9,7 @@ export default defineConfig({
     fullReload(['**/*.html'])
   ],
   build: {
-    outDir: '../docs',
+    outDir: '../dist',
     emptyOutDir: true,
   }
 })
